@@ -1,42 +1,59 @@
 <template>
     <main class="flex-shrink-0">
         <div class="container-fluid">
-            <div class="row mt-2">
-                <div class="col-md-6">
-                    <InputRange
-                        v-model="paramN"
-                        v-bind:min="12"
-                        v-bind:max="360"
-                        label="Number of points" />
-                </div>
-                <div class="col-md-6">
-                    <InputRange
-                        v-model="paramL"
-                        v-bind:min="1"
-                        v-bind:max="30"
-                        label="Number of layers" />
-                </div>
-            </div>
             <div class="row">
-                <div class="col-md-6">
-                    <InputRange
-                        v-model="paramN1"
-                        v-bind:min="1"
-                        v-bind:max="50"
-                        label="First step" />
+                <div class="col-md-4 mt-2">
+                    <div class="row">
+                        <div class="col">
+                        <InputRange
+                            v-model="paramN"
+                            v-bind:min="12"
+                            v-bind:max="360"
+                            label="Number of points" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <InputRange
+                                v-model="paramL"
+                                v-bind:min="1"
+                                v-bind:max="30"
+                                label="Number of layers" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-label">Layer colors</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div
+                            v-for="(l, index) in paramL"
+                            v-bind:key="index"
+                            class="col-2 my-2">
+                            <InputColor v-model="paramC[index]" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <InputRange
+                                v-model="paramN1"
+                                v-bind:min="1"
+                                v-bind:max="50"
+                                label="First step" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <InputRange
+                                v-model="paramN2"
+                                v-bind:min="2"
+                                v-bind:max="50"
+                                label="Second step" />
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <InputRange
-                        v-model="paramN2"
-                        v-bind:min="2"
-                        v-bind:max="50"
-                        label="Second step" />
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row my-3 justify-content-center">
-                <div class="col-auto">
+                <div class="col-md-8 mt-2">
                     <canvas
                         ref="canvas"
                         v-bind:width="width"
@@ -49,11 +66,13 @@
 
 <script>
 import { defineAsyncComponent } from 'vue';
+import colors from '../data/apple-crayons.json';
 
 export default {
     name: 'Main',
 
     components: {
+        InputColor: defineAsyncComponent(() => import('@/components/InputColor')),
         InputRange: defineAsyncComponent(() => import('@/components/InputRange')),
     },
 
@@ -65,6 +84,7 @@ export default {
             ctx: null,
             paramN: 120,
             paramL: 10,
+            paramC: colors,
             paramN1: 1,
             paramN2: 3,
             width,
@@ -102,6 +122,7 @@ export default {
 
             for (let i = 0; i < this.paramL; i++) {
                 const offset = Math.ceil(this.paramN / this.paramL) * i;
+                const color = this.paramC[i];
 
                 let s = 0 + offset;
                 let e = 1 + offset;
@@ -127,6 +148,7 @@ export default {
                     linePoints.push({
                         start,
                         end,
+                        color,
                     });
                 }
             }
@@ -144,6 +166,13 @@ export default {
 
         paramL () {
             this.$nextTick(() => this.drawCanvas());
+        },
+
+        paramC: {
+            handler () {
+                this.$nextTick(() => this.drawCanvas());
+            },
+            deep: true,
         },
 
         paramN1 () {
@@ -167,7 +196,7 @@ export default {
     methods: {
         drawCanvas () {
             // Clear canvas.
-            this.ctx.fillStyle = 'rgb(33, 37, 41)';
+            this.ctx.fillStyle = '#212529';
             this.ctx.fillRect(0, 0, this.width, this.height);
 
             this.drawLines();
@@ -175,7 +204,7 @@ export default {
         },
 
         drawCircle () {
-            this.ctx.fillStyle = 'rgb(255, 255, 255)';
+            this.ctx.fillStyle = '#ffffff';
 
             this.circlePoints.forEach((point) => {
                 this.ctx.beginPath();
@@ -187,12 +216,11 @@ export default {
 
         drawLines () {
             this.ctx.lineWidth = 0.25;
-            this.ctx.strokeStyle = 'rgb(255, 255, 255)';
 
             this.linePoints.forEach((points) => {
                 if (typeof points.start === 'undefined') return;
                 if (typeof points.end === 'undefined') return;
-
+                this.ctx.strokeStyle = points.color;
                 this.ctx.beginPath();
                 this.ctx.moveTo(points.start.x, points.start.y);
                 this.ctx.lineTo(points.end.x, points.end.y);
