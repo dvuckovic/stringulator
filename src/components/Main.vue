@@ -121,12 +121,13 @@ export default {
             const linePoints = [];
 
             for (let i = 0; i < this.paramL; i++) {
-                const offset = Math.ceil(this.paramN / this.paramL) * i;
+                const offset = parseInt(this.paramN / this.paramL) * i;
                 const color = this.paramC[i];
 
                 let s = 0 + offset;
                 let e = 1 + offset;
                 let loop = true;
+                let count = 0;
 
                 while (loop) {
                     s += this.paramN1;
@@ -140,7 +141,10 @@ export default {
 
                     if (
                         start === end
-                        || linePoints.length >= this.paramN * this.paramL
+                        || count >= this.paramN
+                            + parseInt(this.paramN/this.paramN2, 10)
+                            + parseInt(this.paramN/this.paramN2^2, 10)
+                            + 1
                     ) {
                         loop = false;
                     }
@@ -150,6 +154,8 @@ export default {
                         end,
                         color,
                     });
+
+                    count++;
                 }
             }
 
