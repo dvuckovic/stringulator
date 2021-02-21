@@ -9,7 +9,7 @@ describe('Integration test', () => {
     });
 
     it('renders the main area', () => {
-        cy.get('input').should('have.length', 8);
+        cy.get('input').should('have.length', 18);
         cy.get('main canvas').should('exist');
     });
 
