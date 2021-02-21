@@ -2,7 +2,7 @@
     <div class="d-flex flex-column h-100">
         <Navigation />
         <Main
-            ref="main"
+            v-bind:start-download="startDownload"
             v-on:update-lines="updateLines" />
         <Footer
             v-bind:lines="lines"
@@ -25,12 +25,16 @@ export default {
     data () {
         return {
             lines: 0,
+            startDownload: false,
         };
     },
 
     methods: {
         download () {
-            this.$refs.main.download();
+            this.startDownload = true;
+            this.$nextTick(() => {
+                this.startDownload = false;
+            });
         },
 
         updateLines (lines) {
