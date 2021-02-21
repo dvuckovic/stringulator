@@ -1,34 +1,45 @@
 <template>
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="d-flex flex-column h-100">
+        <Navigation />
+        <Main
+            ref="main"
+            v-on:update-lines="updateLines" />
+        <Footer
+            v-bind:lines="lines"
+            v-on:download="download" />
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import { defineAsyncComponent } from 'vue';
 
 export default {
     name: 'App',
 
     components: {
-        HelloWorld,
+        Navigation: defineAsyncComponent(() => import('@/components/Navigation')),
+        Main: defineAsyncComponent(() => import('@/components/Main')),
+        Footer: defineAsyncComponent(() => import('@/components/Footer')),
     },
 
-    mounted () {
-        // Dynamically import the Bootstrap library, because it's not SSR-friendly.
-        import('bootstrap');
+    data () {
+        return {
+            lines: 0,
+        };
+    },
+
+    methods: {
+        download () {
+            this.$refs.main.download();
+        },
+
+        updateLines (lines) {
+            this.lines = lines;
+        },
     },
 };
 </script>
 
 <style lang="scss">
 @import 'node_modules/bootstrap/scss/bootstrap';
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
