@@ -46,7 +46,6 @@ jobs:
       with:
         author: Dusan Vuckovic <dusan@dvuckovic.com>
         commit_message: Deployed to Github Pages.
-        fqdn: back2string.art
         build_dir: dist/
         repo: dvuckovic/stringulator
         target_branch: gh-pages
