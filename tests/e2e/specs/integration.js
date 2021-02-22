@@ -5,11 +5,12 @@ describe('Integration test', () => {
 
     it('renders the navigation bar', () => {
         cy.contains('nav .navbar-brand', 'Stringulator');
-        cy.contains('nav .nav-link', 'back2string.art');
+        cy.contains('nav .text-muted', 'Quick & dirty circular string art simulator');
+        cy.get('nav .nav-link').should('have.attr', 'title', 'Github');
     });
 
     it('renders the main area', () => {
-        cy.get('input').should('have.length', 18);
+        cy.get('input').should('have.length', 20);
         cy.get('main canvas').should('exist');
     });
 

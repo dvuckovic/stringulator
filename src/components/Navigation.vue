@@ -26,9 +26,10 @@
                     <li class="nav-item">
                         <a
                             class="nav-link"
-                            href="https://back2string.art"
+                            href="https://github.com/dvuckovic/stringulator/"
+                            title="Github"
                             target="_blank">
-                            back2string.art
+                            <i class="bi-github" />
                         </a>
                     </li>
                 </ul>
@@ -42,3 +43,11 @@ export default {
     name: 'Navigation',
 };
 </script>
+
+<style lang="scss">
+.bi {
+    &-github {
+        font-size: 1.5em;
+    }
+}
+</style>
