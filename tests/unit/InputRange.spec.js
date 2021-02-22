@@ -44,6 +44,34 @@ describe('InputRange', () => {
         wrapper.find('input[type="number"]').setValue(modelValue);
 
         expect(wrapper.emitted()['update:modelValue'][1]).toEqual([modelValue]);
+
+        delete wrapper.emitted()['update:modelValue'];
+    });
+
+    it('does not emit invalid values', async () => {
+        wrapper.setProps({
+            max: 5,
+        });
+
+        await wrapper.vm.$nextTick(() => {});
+
+        let modelValue = 6;
+
+        wrapper.find('input[type="range"]').setValue(modelValue);
+
+        expect(wrapper.emitted()).toEqual({});
+
+        wrapper.setProps({
+            min: 0,
+        });
+
+        await wrapper.vm.$nextTick(() => {});
+
+        modelValue = -1;
+
+        wrapper.find('input[type="number"]').setValue(modelValue);
+
+        expect(wrapper.emitted()).toEqual({});
     });
 
     it ('supports the label prop', async () => {

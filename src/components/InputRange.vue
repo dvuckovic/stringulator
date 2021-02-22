@@ -78,8 +78,15 @@ export default {
                 return this.modelValue;
             },
 
-            set (modelValue) {
-                this.$emit('update:modelValue', parseInt(modelValue, 10));
+            set (newValue) {
+                const integerValue = parseInt(newValue, 10);
+
+                // Emit only integers that fall within the configured range.
+                if (Number.isNaN(integerValue)) return;
+                if (integerValue < this.min) return;
+                if (integerValue > this.max) return;
+
+                this.$emit('update:modelValue', integerValue);
             },
         },
     },
