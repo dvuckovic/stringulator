@@ -2,7 +2,7 @@
     <main class="flex-shrink-0">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-4 mt-2">
+                <div class="col-md-4 my-2">
                     <div class="row">
                         <div class="col">
                         <InputRange
@@ -23,15 +23,38 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label class="form-label">Layer colors</label>
+                            <label class="form-label">Layer color</label>
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col">
+                            <InputRadio
+                                v-model="colorMode"
+                                option="single"
+                                label="Single" />
+                            <InputRadio
+                                v-model="colorMode"
+                                option="multiple"
+                                label="Multiple" />
+                        </div>
+                    </div>
+                    <div
+                        v-if="colorMode === 'multiple'"
+                        class="row">
                         <div
                             v-for="(l, index) in paramL"
                             v-bind:key="index"
-                            class="col-2 my-2">
-                            <InputColor v-model="paramC[index]" />
+                            class="col-3 col-sm-2 col-md-3 col-xl-2 my-2">
+                            <InputColor
+                                v-model="paramC[index]"
+                                v-bind:label="index + 1" />
+                        </div>
+                    </div>
+                    <div
+                        v-else-if="colorMode === 'single'"
+                        class="row">
+                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 my-2">
+                            <InputColor v-model="paramC[0]" />
                         </div>
                     </div>
                     <div class="row">
@@ -74,6 +97,7 @@ export default {
     components: {
         InputColor: defineAsyncComponent(() => import('@/components/InputColor')),
         InputRange: defineAsyncComponent(() => import('@/components/InputRange')),
+        InputRadio: defineAsyncComponent(() => import('@/components/InputRadio')),
     },
 
     data() {
@@ -87,6 +111,7 @@ export default {
             paramC: colors,
             paramN1: 1,
             paramN2: 3,
+            colorMode: 'multiple',
             width,
             height,
             cx: width / 2,
@@ -122,7 +147,9 @@ export default {
 
             for (let i = 0; i < this.paramL; i++) {
                 const offset = Math.round(this.paramN / this.paramL) * i;
-                const color = this.paramC[i];
+                const color = this.colorMode === 'multiple'
+                    ? this.paramC[i]
+                    : this.paramC[0];
 
                 let s = 0 + offset;
                 let e = 0 + offset;
@@ -183,6 +210,10 @@ export default {
         },
 
         paramN2 () {
+            this.$nextTick(() => this.drawCanvas());
+        },
+
+        colorMode () {
             this.$nextTick(() => this.drawCanvas());
         },
     },

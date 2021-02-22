@@ -1,25 +1,25 @@
 import { shallowMount } from '@vue/test-utils';
-import InputColor from '@/components/InputColor';
+import InputRadio from '@/components/InputRadio';
 
-describe('InputColor', () => {
+describe('InputRadio', () => {
     let wrapper;
 
     it('renders the passed value', () => {
-        const modelValue = '#ff0000';
+        const modelValue = 'foo';
+        const option = 'foo';
 
-        wrapper = shallowMount(InputColor, {
+        wrapper = shallowMount(InputRadio, {
             props: {
                 modelValue,
-            },
+                option,
+            }
         });
 
-        wrapper.findAll('input').forEach((input) => {
-            expect(input.element.value).toEqual(modelValue);
-        });
+        expect(wrapper.find('input').element.checked).toBe(true);
     });
 
     it('updates the passed value', async () => {
-        const modelValue = '#00ff00';
+        const modelValue = 'bar';
 
         wrapper.setProps({
             modelValue,
@@ -27,17 +27,21 @@ describe('InputColor', () => {
 
         await wrapper.vm.$nextTick(() => {});
 
-        wrapper.findAll('input').forEach((input) => {
-            expect(input.element.value).toEqual(modelValue);
-        });
+        expect(wrapper.find('input').element.checked).toBe(false);
     });
 
-    it('emits the update event on input change', () => {
-        let modelValue = '#0000ff';
+    it('emits the update event on input change', async () => {
+        const option = 'foo';
 
-        wrapper.find('input[type="color"]').setValue(modelValue);
+        wrapper.setProps({
+            option,
+        });
 
-        expect(wrapper.emitted()['update:modelValue'][0]).toEqual([modelValue]);
+        await wrapper.vm.$nextTick(() => {});
+
+        wrapper.find('input[type="radio"]').setValue(true);
+
+        expect(wrapper.emitted()['update:modelValue'][0]).toEqual([option]);
     });
 
     it ('supports the label prop', async () => {
@@ -62,6 +66,6 @@ describe('InputColor', () => {
         const fieldId = labelElement.attributes('for');
 
         expect(fieldId).not.toBeUndefined();
-        expect(wrapper.find('input[type="color"]').attributes('id')).toEqual(fieldId);
+        expect(wrapper.find('input[type="radio"]').attributes('id')).toEqual(fieldId);
     });
 });

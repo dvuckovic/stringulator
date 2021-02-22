@@ -1,5 +1,11 @@
 <template>
-    <div class="col">
+    <div class="form-floating">
+        <label
+            v-if="label"
+            v-bind:for="fieldId"
+            class="form-label">
+            {{ label }}
+        </label>
         <input
             v-bind:id="fieldId"
             v-model="localModelValue"
@@ -16,6 +22,10 @@ export default {
 
     props: {
         modelValue: {
+            type: String,
+        },
+
+        label: {
             type: String,
         },
     },
@@ -43,3 +53,27 @@ export default {
     },
 };
 </script>
+
+<style lang="scss">
+.form {
+    &-floating {
+        & > label {
+            padding: 0;
+            width: 100%;
+            text-align: center;
+            max-width: 3rem;
+            line-height: 2.2rem;
+        }
+
+        & > .form-control {
+            height: auto;
+            padding: 0.375rem;
+
+            &:not(:placeholder-shown) {
+                padding-top: 0.375rem;
+                padding-bottom: 0.375rem;
+            }
+        }
+    }
+}
+</style>
