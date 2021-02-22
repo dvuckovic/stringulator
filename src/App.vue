@@ -2,7 +2,7 @@
     <div class="d-flex flex-column h-100">
         <Navigation />
         <Main
-            v-bind:start-download="startDownload"
+            ref="main"
             v-on:update-lines="updateLines" />
         <Footer
             v-bind:lines="lines"
@@ -12,29 +12,28 @@
 
 <script>
 import { defineAsyncComponent } from 'vue';
+import Main from '@/components/Main';
 
 export default {
     name: 'App',
 
     components: {
+        // Template refs are currently not working properly on async components.
+        //   More info: https://github.com/vuejs/vue-next/issues/3188
+        Main,
         Navigation: defineAsyncComponent(() => import('@/components/Navigation')),
-        Main: defineAsyncComponent(() => import('@/components/Main')),
         Footer: defineAsyncComponent(() => import('@/components/Footer')),
     },
 
     data () {
         return {
             lines: 0,
-            startDownload: false,
         };
     },
 
     methods: {
         download () {
-            this.startDownload = true;
-            this.$nextTick(() => {
-                this.startDownload = false;
-            });
+            return this.$refs.main && this.$refs.main.download();
         },
 
         updateLines (lines) {

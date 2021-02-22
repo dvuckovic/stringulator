@@ -76,12 +76,6 @@ export default {
         InputRange: defineAsyncComponent(() => import('@/components/InputRange')),
     },
 
-    props: {
-        startDownload: {
-            type: Boolean,
-        },
-    },
-
     data() {
         const width = 1024;
         const height = 768;
@@ -194,10 +188,6 @@ export default {
         paramN2 () {
             this.$nextTick(() => this.drawCanvas());
         },
-
-        startDownload (download) {
-            if (download) this.download();
-        },
     },
 
     mounted () {
@@ -253,6 +243,9 @@ export default {
                 `stringulator-${this.paramN}-${this.paramL}-${this.paramN1}-${this.paramN2}.svg`
             );
             document.body.appendChild(link);
+
+            if (window.Cypress) return;
+
             link.click();
             link.remove();
         },
