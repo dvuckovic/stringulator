@@ -14,6 +14,8 @@
 import { defineAsyncComponent } from 'vue';
 import Main from '@/components/Main';
 
+import 'bootstrap';
+
 export default {
     name: 'App',
 
