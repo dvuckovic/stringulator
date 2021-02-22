@@ -121,11 +121,11 @@ export default {
             const linePoints = [];
 
             for (let i = 0; i < this.paramL; i++) {
-                const offset = parseInt(this.paramN / this.paramL) * i;
+                const offset = Math.round(this.paramN / this.paramL) * i;
                 const color = this.paramC[i];
 
                 let s = 0 + offset;
-                let e = 1 + offset;
+                let e = 0 + offset;
                 let loop = true;
                 let count = 0;
 
@@ -133,18 +133,15 @@ export default {
                     s += this.paramN1;
                     e += this.paramN2;
 
-                    while (s >= this.circlePoints.length) s -= this.circlePoints.length;
-                    while (e >= this.circlePoints.length) e -= this.circlePoints.length;
+                    while (s >= this.circlePoints.length - 1) s -= this.circlePoints.length - 1;
+                    while (e >= this.circlePoints.length - 1) e -= this.circlePoints.length - 1;
 
                     const start = this.circlePoints[s];
                     const end = this.circlePoints[e];
 
                     if (
-                        start === end
-                        || count >= this.paramN
-                            + parseInt(this.paramN/this.paramN2, 10)
-                            + parseInt(this.paramN/this.paramN2^2, 10)
-                            + 1
+                        count >= parseInt(this.paramN / this.paramN2, 10)
+                            + parseInt(this.paramN / (this.paramN2 * this.paramN2), 10)
                     ) {
                         loop = false;
                     }
@@ -244,6 +241,7 @@ export default {
             );
             document.body.appendChild(link);
 
+            // Don't actually download the file in the testing environment.
             if (window.Cypress) return;
 
             link.click();
