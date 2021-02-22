@@ -18,7 +18,10 @@
             </button>
             <div
                 id="navbar"
-                class="collapse navbar-collapse" >
+                class="collapse navbar-collapse">
+                <span class="text-muted">
+                    Quick & dirty circular string art simulator
+                </span>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a
