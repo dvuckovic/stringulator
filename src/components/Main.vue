@@ -75,6 +75,26 @@
                                 label="Second step" />
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col">
+                        <InputRange
+                            v-model="paramX"
+                            v-bind:min="-0.99"
+                            v-bind:max="0.99"
+                            setp="0.01"
+                            label="Center X displacement" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                        <InputRange
+                            v-model="paramY"
+                            v-bind:min="-0.99"
+                            v-bind:max="0.99"
+                            setp="0.01"
+                            label="Center Y displacement" />
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-8 mt-2">
                     <canvas
@@ -111,6 +131,8 @@ export default {
             paramC: colors,
             paramN1: 1,
             paramN2: 3,
+            paramX: 0.5,
+            paramY: 0.0,
             colorMode: 'multiple',
             width,
             height,
@@ -122,18 +144,60 @@ export default {
 
     computed: {
         circlePoints () {
-            const n = this.paramN;
-            const alpha = Math.PI * 2 / n;
+            # method: drawing two circles, the first centered in (0, 0) and
+            # the second centered at (x_offset, y_offset).
+            # For each point in the upper semicircle of the first circle, we draw
+            # a line joining that point with (0, 0), and intersect such line with the
+            # displaced circle
+
+            const n_points = this.paramN;
+            const r = 1.0;
+
+            // find formula of second circle (x - h) ^ 2 + (y - k) ^ 2 = r ^ 2
+            const h = this.paramX;
+            const k = this.paramY;
+
+            const alpha = Math.PI * 2 / n_points;
             const points = [];
 
-            let i = -1;
-
-            while (i < n) {
+            // loop all points of the top half of the first circle
+            // TODO: the previous loop was ranging from -1 to n-1 and adding a point each iteration (total of n+1 points)
+            //       whereas the current is ranging from 0 to n/2 and adding two points each iteration
+            //       (total of n+2 if n is even, n+1 if n is odd)
+            let i = 0;
+            while (i <= n_points / 2) {
                 const theta = alpha * i;
+                const xc1 = Math.cos(theta) * r;
+                const yc2 = Math.sin(theta) * r;
 
+                // for each point, find line y = m*x + n passing by (0,0) and (x,y)
+                const n = 0;
+                const m = (yc1 - n) / xc1;
+
+                // and find both intersections of such line with the second circle
+                // { (x - h) ^ 2 + (y - k) ^ 2 = r ^ 2
+                // { y = m * x + n
+                // -----------------------------------
+                // (1 + m^2) * x^2 + (2mn - 2h - 2mk) * x + (h^2 + n^2 + k^2 - r^2 - 2nk) = 0
+                const a = 1 + Math.pow(m, 2);
+                const b = 2 * m * n - 2 * h - 2 * m * k;
+                const c = Math.pow(h, 2) + Math.pow(n, 2) + Math.pow(k, 2) - Math.pow(r, 2) - 2 * n * k;
+                const x1 = (0 - b + Math.sqrt(Math.pow(b, 2) - 4 * a * c) ) / (2 * a);
+                const x2 = (0 - b - Math.sqrt(Math.pow(b, 2) - 4 * a * c) ) / (2 * a);
+                const y1 = m * x1 + n;
+                const y2 = m * x2 + n;
+
+                // recenter second circle to (0, 0) and store the intersections found in that circle
+                // scale the points according to rad
+                // recenter second circle to (cx, cy)
+                // store the points
                 points.push({
-                    x: (Math.cos(theta) * this.rad) + this.cx,
-                    y: (Math.sin(theta) * this.rad) + this.cy,
+                    x: (x1 - h) * this.rad + this.cx,
+                    y: (y1 - k) * this.rad + this.cy,
+                });
+                points.push({
+                    x: (x2 - h) * this.rad + this.cx,
+                    y: (y2 - k) * this.rad + this.cy,
                 });
 
                 i += 1;
@@ -210,6 +274,14 @@ export default {
         },
 
         paramN2 () {
+            this.$nextTick(() => this.drawCanvas());
+        },
+
+        paramX () {
+            this.$nextTick(() => this.drawCanvas());
+        },
+
+        paramY () {
             this.$nextTick(() => this.drawCanvas());
         },
 
