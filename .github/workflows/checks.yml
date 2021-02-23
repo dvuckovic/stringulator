@@ -1,13 +1,11 @@
-name: Test
+name: Checks
 
 # Controls when the action will run.
 #   Triggers the workflow on all pushes & pull requests.
-on:
-  - push
-  - pull_request
+on: [push, pull_request]
 
 jobs:
-  deploy:
+  checks:
     runs-on: ubuntu-20.04
     steps:
     - name: Checkout 🛎️
@@ -33,3 +31,19 @@ jobs:
 
     - name: Test ✅
       run: npm test
+
+    - name: Build 🚛
+      if: success() && github.ref == 'refs/heads/main'
+      run: npm run build
+
+    - name: Deploy 🚀
+      if: success() && github.ref == 'refs/heads/main'
+      uses: crazy-max/ghaction-github-pages@v2
+      with:
+        author: Dusan Vuckovic <dusan@dvuckovic.com>
+        commit_message: Deployed to Github Pages.
+        build_dir: dist/
+        repo: dvuckovic/stringulator
+        target_branch: gh-pages
+      env:
+        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
