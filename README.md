@@ -1,5 +1,11 @@
 # Stringulator
 
+[![Build Status](https://img.shields.io/github/workflow/status/dvuckovic/stringulator/Test%20&%20Deploy)](https://github.com/dvuckovic/stringulator/actions/workflows/checks.yml)
+[![Powered by Vue](https://img.shields.io/github/package-json/dependency-version/dvuckovic/stringulator/vue)](https://v3.vuejs.org/)
+[![License](https://img.shields.io/github/package-json/license/dvuckovic/stringulator?color=white)](http://www.wtfpl.net/)
+
+Quick & dirty circular string art simulator.
+
 ## Project setup
 ```
 npm install --no-save
