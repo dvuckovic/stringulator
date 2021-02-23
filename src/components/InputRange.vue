@@ -79,14 +79,20 @@ export default {
             },
 
             set (newValue) {
-                const integerValue = parseInt(newValue, 10);
+                let castValue = newValue;
 
-                // Emit only integers that fall within the configured range.
-                if (Number.isNaN(integerValue)) return;
-                if (integerValue < this.min) return;
-                if (integerValue > this.max) return;
+                if (Number.isInteger(this.step)) {
+                    castValue = parseInt(newValue, 10);
+                }
+                else {
+                    castValue = parseFloat(newValue);
+                }
 
-                this.$emit('update:modelValue', integerValue);
+                if (Number.isNaN(castValue)) return;
+                if (castValue < this.min) return;
+                if (castValue > this.max) return;
+
+                this.$emit('update:modelValue', castValue);
             },
         },
     },
