@@ -1,11 +1,11 @@
-name: Checks
+name: Test & Deploy
 
 # Controls when the action will run.
 #   Triggers the workflow on all pushes & pull requests.
 on: [push, pull_request]
 
 jobs:
-  checks:
+  gh_ci_cd:
     runs-on: ubuntu-20.04
     steps:
     - name: Checkout 🛎️
