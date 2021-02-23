@@ -144,11 +144,11 @@ export default {
 
     computed: {
         circlePoints () {
-            # method: drawing two circles, the first centered in (0, 0) and
-            # the second centered at (x_offset, y_offset).
-            # For each point in the upper semicircle of the first circle, we draw
-            # a line joining that point with (0, 0), and intersect such line with the
-            # displaced circle
+            // method: drawing two circles, the first centered in (0, 0) and
+            // the second centered at (x_offset, y_offset).
+            // For each point in the upper semicircle of the first circle, we draw
+            // a line joining that point with (0, 0), and intersect such line with the
+            // displaced circle
 
             const n_points = this.paramN;
             const r = 1.0;
