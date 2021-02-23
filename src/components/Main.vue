@@ -46,7 +46,7 @@
                             v-bind:key="index"
                             class="col-3 col-sm-2 col-md-3 col-xl-2 my-2">
                             <InputColor
-                                v-model="paramC[index]"
+                                v-model="paramC.multiple[index]"
                                 v-bind:label="index + 1" />
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                         v-else-if="colorMode === 'single'"
                         class="row">
                         <div class="col-3 col-sm-2 col-md-3 col-xl-2 my-2">
-                            <InputColor v-model="paramC[0]" />
+                            <InputColor v-model="paramC.single" />
                         </div>
                     </div>
                     <div class="row">
@@ -108,7 +108,10 @@ export default {
             ctx: null,
             paramN: 120,
             paramL: 10,
-            paramC: colors,
+            paramC: {
+                single: '#ffffff',
+                multiple: colors,
+            },
             paramN1: 1,
             paramN2: 3,
             colorMode: 'multiple',
@@ -148,8 +151,8 @@ export default {
             for (let i = 0; i < this.paramL; i++) {
                 const offset = Math.round(this.paramN / this.paramL) * i;
                 const color = this.colorMode === 'multiple'
-                    ? this.paramC[i]
-                    : this.paramC[0];
+                    ? this.paramC.multiple[i]
+                    : this.paramC.single;
 
                 let s = 0 + offset;
                 let e = 0 + offset;
