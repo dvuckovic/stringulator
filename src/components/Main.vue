@@ -3,80 +3,121 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4 my-2">
-                    <div class="row">
-                        <div class="col">
-                        <InputRange
-                            v-model="paramN"
-                            v-bind:min="12"
-                            v-bind:max="360"
-                            label="Number of points" />
+                    <form v-on:change="isModified = true">
+                        <div class="row">
+                            <div class="col">
+                                <InputRange
+                                    v-model="paramN"
+                                    class="InputRange--ParamN"
+                                    v-bind:min="12"
+                                    v-bind:max="360"
+                                    label="Number of points" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <InputRange
-                                v-model="paramL"
-                                v-bind:min="1"
-                                v-bind:max="30"
-                                label="Number of layers" />
+                        <div class="row">
+                            <div class="col">
+                                <InputRange
+                                    v-model="paramL"
+                                    class="InputRange--ParamL"
+                                    v-bind:min="1"
+                                    v-bind:max="30"
+                                    label="Number of layers" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label class="form-label">Layer color</label>
+                        <div class="row">
+                            <div class="col">
+                                <label class="form-label">Layer color</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <InputRadio
-                                v-model="colorMode"
-                                option="single"
-                                label="Single" />
-                            <InputRadio
-                                v-model="colorMode"
-                                option="multiple"
-                                label="Multiple" />
+                        <div class="row">
+                            <div class="col">
+                                <InputRadio
+                                    v-model="paramM"
+                                    class="InputRadio--ParamMSingle"
+                                    option="single"
+                                    label="Single" />
+                                <InputRadio
+                                    v-model="paramM"
+                                    class="InputRadio--ParamMMultiple"
+                                    option="multiple"
+                                    label="Multiple" />
+                            </div>
                         </div>
-                    </div>
-                    <div
-                        v-if="colorMode === 'multiple'"
-                        class="row">
                         <div
-                            v-for="(l, index) in paramL"
-                            v-bind:key="index"
-                            class="col-3 col-sm-2 col-md-3 col-xl-2 my-2">
-                            <InputColor
-                                v-model="paramC.multiple[index]"
-                                v-bind:label="index + 1" />
+                            v-if="paramM === 'multiple'"
+                            class="row">
+                            <div
+                                v-for="(l, index) in paramL"
+                                v-bind:key="index"
+                                class="col-3 col-sm-2 col-md-3 col-xl-2 my-2">
+                                <InputColor
+                                    v-model="paramC.multiple[index]"
+                                    class="InputColor--ParamC"
+                                    v-bind:label="index + 1" />
+                            </div>
                         </div>
-                    </div>
-                    <div
-                        v-else-if="colorMode === 'single'"
-                        class="row">
-                        <div class="col-3 col-sm-2 col-md-3 col-xl-2 my-2">
-                            <InputColor v-model="paramC.single" />
+                        <div
+                            v-else-if="paramM === 'single'"
+                            class="row">
+                            <div class="col-3 col-sm-2 col-md-3 col-xl-2 my-2">
+                                <InputColor
+                                    v-model="paramC.single"
+                                    class="InputColor--ParamC" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <InputRange
-                                v-model="paramN1"
-                                v-bind:min="1"
-                                v-bind:max="50"
-                                label="First step" />
+                        <div class="row">
+                            <div class="col">
+                                <InputRange
+                                    v-model="paramN1"
+                                    class="InputRange--ParamN1"
+                                    v-bind:min="1"
+                                    v-bind:max="50"
+                                    label="First step" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <InputRange
-                                v-model="paramN2"
-                                v-bind:min="2"
-                                v-bind:max="50"
-                                label="Second step" />
+                        <div class="row">
+                            <div class="col">
+                                <InputRange
+                                    v-model="paramN2"
+                                    class="InputRange--ParamN2"
+                                    v-bind:min="2"
+                                    v-bind:max="50"
+                                    label="Second step" />
+                            </div>
                         </div>
-                    </div>
+                        <div class="row mt-3 justify-content-between">
+                            <div class="col-12 col-xxl-4 order-3 order-xxl-1 mt-3 d-grid">
+                                <button
+                                    v-bind:disabled="!isModified"
+                                    type="reset"
+                                    class="btn btn-light"
+                                    v-on:click.prevent="resetData">
+                                    <i class="bi-trash-fill" />
+                                    Reset
+                                </button>
+                            </div>
+                            <div class="col-12 col-xxl-4 order-2 mt-3 d-grid">
+                                <button
+                                    v-bind:data-clipboard-text="shareLink"
+                                    type="button"
+                                    class="btn btn-secondary CopyToClipboard">
+                                    <i class="bi-share-fill" />
+                                    Share
+                                </button>
+                            </div>
+                            <div class="col-12 col-xxl-4 order-1 order-xxl-3 mt-3 d-grid">
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary"
+                                    v-on:click.prevent="download">
+                                    <i class="bi-cloud-arrow-down-fill" />
+                                    Download
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="col-md-8 mt-2">
+                <div class="col-md-8">
                     <canvas
                         ref="canvas"
                         v-bind:width="width"
@@ -84,12 +125,48 @@
                 </div>
             </div>
         </div>
+        <div
+            class="position-fixed bottom-0 end-0 p-3"
+            style="z-index: 5">
+            <div
+                ref="copyToClipboardToast"
+                class="toast hide"
+                role="alert"
+                aria-live="assertive"
+                aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Share link copied to clipboard.
+                    </div>
+                    <button
+                        type="button"
+                        class="btn-close me-2 m-auto"
+                        data-bs-dismiss="toast"
+                        aria-label="Close" />
+                </div>
+            </div>
+        </div>
     </main>
 </template>
 
 <script>
+import ClipboardJS from 'clipboard';
 import { defineAsyncComponent } from 'vue';
+import { Base64 } from 'js-base64';
+import { Toast } from 'bootstrap';
 import colors from '../data/apple-crayons.json';
+
+const DEFAULT = {
+    PARAM_N: 120,
+    PARAM_L: 10,
+    PARAM_M: 'multiple',
+    PARAM_C_SINGLE: '#ffffff',
+    PARAM_C_MULTIPLE: colors,
+    PARAM_N1: 1,
+    PARAM_N2: 3,
+    WIDTH: 1024,
+    HEIGHT: 768,
+};
 
 export default {
     name: 'Main',
@@ -101,25 +178,23 @@ export default {
     },
 
     data() {
-        const width = 1024;
-        const height = 768;
-
         return {
             ctx: null,
-            paramN: 120,
-            paramL: 10,
+            paramN: DEFAULT.PARAM_N,
+            paramL: DEFAULT.PARAM_L,
+            paramM: DEFAULT.PARAM_M,
             paramC: {
-                single: '#ffffff',
-                multiple: colors,
+                single: DEFAULT.PARAM_C_SINGLE,
+                multiple: Array.from(DEFAULT.PARAM_C_MULTIPLE),
             },
-            paramN1: 1,
-            paramN2: 3,
-            colorMode: 'multiple',
-            width,
-            height,
-            cx: width / 2,
-            cy: height / 2,
-            rad: height / 2 - 20,
+            paramN1: DEFAULT.PARAM_N1,
+            paramN2: DEFAULT.PARAM_N2,
+            width: DEFAULT.WIDTH,
+            height: DEFAULT.HEIGHT,
+            cx: parseInt(DEFAULT.WIDTH / 2, 10),
+            cy: parseInt(DEFAULT.HEIGHT / 2, 10),
+            rad: parseInt(DEFAULT.HEIGHT / 2 - 20, 10),
+            isModified: false,
         };
     },
 
@@ -150,7 +225,7 @@ export default {
 
             for (let i = 0; i < this.paramL; i++) {
                 const offset = Math.round(this.paramN / this.paramL) * i;
-                const color = this.colorMode === 'multiple'
+                const color = this.paramM === 'multiple'
                     ? this.paramC.multiple[i]
                     : this.paramC.single;
 
@@ -190,6 +265,19 @@ export default {
 
             return linePoints;
         },
+
+        shareLink () {
+            const data = {
+                paramN: this.paramN,
+                paramL: this.paramL,
+                paramM: this.paramM,
+                paramC: this.paramC,
+                paramN1: this.paramN1,
+                paramN2: this.paramN2,
+            };
+
+            return `${window.location.href}#${Base64.encode(JSON.stringify(data))}`;
+        },
     },
 
     watch: {
@@ -216,7 +304,7 @@ export default {
             this.$nextTick(() => this.drawCanvas());
         },
 
-        colorMode () {
+        paramM () {
             this.$nextTick(() => this.drawCanvas());
         },
     },
@@ -227,10 +315,65 @@ export default {
         this.ctx.width = this.width;
         this.ctx.height = this.height;
 
+        // Setup the share link button and associated toast message.
+        if (this.$refs.copyToClipboardToast) {
+            const toast = new Toast(this.$refs.copyToClipboardToast);
+            new ClipboardJS('.CopyToClipboard').on('success', () => toast.show());
+        }
+
+        // Load the data and draw the lines.
+        this.loadData();
         this.drawCanvas();
+
+        // Whenever the hash value is changed, try to load the data from it.
+        window.addEventListener('hashchange', this.loadData);
+    },
+
+    beforeUnmount () {
+        window.removeEventListener('hashchange', this.loadData);
     },
 
     methods: {
+        setData (data) {
+            this.paramN = data.paramN;
+            this.paramL = data.paramL;
+            this.paramM = data.paramM;
+            this.paramC = data.paramC;
+            this.paramN1 = data.paramN1;
+            this.paramN2 = data.paramN2;
+            this.isModified = false;
+        },
+
+        loadData () {
+            if (location.hash) {
+                try {
+                    const base64 = location.hash.substring(1);
+                    const data = JSON.parse(Base64.decode(base64));
+                    this.setData(data);
+                }
+                catch (err) {
+                    console.error('Error parsing data, please check your link.', err);
+                }
+
+                // Clear the hash value by replacing the current history state.
+                history.replaceState('', document.title, window.location.pathname + window.location.search);
+            }
+        },
+
+        resetData () {
+            this.setData({
+                paramN: DEFAULT.PARAM_N,
+                paramL: DEFAULT.PARAM_L,
+                paramM: DEFAULT.PARAM_M,
+                paramC: {
+                    single: DEFAULT.PARAM_C_SINGLE,
+                    multiple: Array.from(DEFAULT.PARAM_C_MULTIPLE),
+                },
+                paramN1: DEFAULT.PARAM_N1,
+                paramN2: DEFAULT.PARAM_N2,
+            });
+        },
+
         drawCanvas () {
             // Clear canvas.
             this.ctx.fillStyle = '#212529';
@@ -271,7 +414,7 @@ export default {
             link.href = this.$refs.canvas.toDataURL('image/png;base64');
             link.setAttribute(
                 'download',
-                `stringulator-${this.paramN}-${this.paramL}-${this.paramN1}-${this.paramN2}.svg`
+                `stringulator-${this.paramN}-${this.paramL}-${this.paramN1}-${this.paramN2}.png`
             );
             document.body.appendChild(link);
 

@@ -1,18 +1,13 @@
 <template>
     <div class="d-flex flex-column h-100">
         <Navigation />
-        <Main
-            ref="main"
-            v-on:update-lines="updateLines" />
-        <Footer
-            v-bind:lines="lines"
-            v-on:download="download" />
+        <Main v-on:update-lines="updateLines" />
+        <Footer v-bind:lines="lines" />
     </div>
 </template>
 
 <script>
 import { defineAsyncComponent } from 'vue';
-import Main from '@/components/Main';
 
 import 'bootstrap';
 
@@ -20,9 +15,7 @@ export default {
     name: 'App',
 
     components: {
-        // Template refs are currently not working properly on async components.
-        //   More info: https://github.com/vuejs/vue-next/issues/3188
-        Main,
+        Main: defineAsyncComponent(() => import('@/components/Main')),
         Navigation: defineAsyncComponent(() => import('@/components/Navigation')),
         Footer: defineAsyncComponent(() => import('@/components/Footer')),
     },
@@ -34,10 +27,6 @@ export default {
     },
 
     methods: {
-        download () {
-            return this.$refs.main && this.$refs.main.download();
-        },
-
         updateLines (lines) {
             this.lines = lines;
         },
@@ -46,6 +35,14 @@ export default {
 </script>
 
 <style lang="scss">
+// Bootstrap colors.
+//   https://coolors.co/7952b3-42484c-c8ccd0-212529-ffffff
+$primary: #7952b3;
+$secondary: #42484c;
+$light: #c8ccd0;
+$dark: #212529;
+$white: #ffffff;
+
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css');
 </style>
