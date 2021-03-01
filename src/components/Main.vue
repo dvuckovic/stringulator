@@ -26,6 +26,16 @@
                         </div>
                         <div class="row">
                             <div class="col">
+                                <InputRange
+                                    v-model="paramLL"
+                                    class="InputRange--ParamLL"
+                                    v-bind:min="1"
+                                    v-bind:max="this.paramN * 2"
+                                    label="Lines per layer" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
                                 <label class="form-label">Layer color</label>
                             </div>
                         </div>
@@ -154,11 +164,13 @@ import ClipboardJS from 'clipboard';
 import { defineAsyncComponent } from 'vue';
 import { Base64 } from 'js-base64';
 import { Toast } from 'bootstrap';
+import hashSum from 'hash-sum';
 import colors from '../data/apple-crayons.json';
 
 const DEFAULT = {
     PARAM_N: 120,
     PARAM_L: 10,
+    PARAM_LL: 60,
     PARAM_M: 'multiple',
     PARAM_C_SINGLE: '#ffffff',
     PARAM_C_MULTIPLE: colors,
@@ -182,6 +194,7 @@ export default {
             ctx: null,
             paramN: DEFAULT.PARAM_N,
             paramL: DEFAULT.PARAM_L,
+            paramLL: DEFAULT.PARAM_LL,
             paramM: DEFAULT.PARAM_M,
             paramC: {
                 single: DEFAULT.PARAM_C_SINGLE,
@@ -244,13 +257,6 @@ export default {
                     const start = this.circlePoints[s];
                     const end = this.circlePoints[e];
 
-                    if (
-                        count >= parseInt(this.paramN / this.paramN2, 10)
-                            + parseInt(this.paramN / (this.paramN2 * this.paramN2), 10)
-                    ) {
-                        loop = false;
-                    }
-
                     linePoints.push({
                         start,
                         end,
@@ -258,6 +264,8 @@ export default {
                     });
 
                     count++;
+
+                    if (count >= this.paramLL) loop = false;
                 }
             }
 
@@ -266,17 +274,24 @@ export default {
             return linePoints;
         },
 
-        shareLink () {
-            const data = {
+        dataHash () {
+            return {
                 paramN: this.paramN,
                 paramL: this.paramL,
+                paramLL: this.paramLL,
                 paramM: this.paramM,
                 paramC: this.paramC,
                 paramN1: this.paramN1,
                 paramN2: this.paramN2,
             };
+        },
 
-            return `${window.location.href}#${Base64.encode(JSON.stringify(data))}`;
+        shareLink () {
+            return `${window.location.href}#${Base64.encode(JSON.stringify(this.dataHash))}`;
+        },
+
+        dataSum () {
+            return hashSum(this.dataHash);
         },
     },
 
@@ -286,6 +301,10 @@ export default {
         },
 
         paramL () {
+            this.$nextTick(() => this.drawCanvas());
+        },
+
+        paramLL () {
             this.$nextTick(() => this.drawCanvas());
         },
 
@@ -337,6 +356,7 @@ export default {
         setData (data) {
             this.paramN = data.paramN;
             this.paramL = data.paramL;
+            this.paramLL = data.paramLL;
             this.paramM = data.paramM;
             this.paramC = data.paramC;
             this.paramN1 = data.paramN1;
@@ -364,6 +384,7 @@ export default {
             this.setData({
                 paramN: DEFAULT.PARAM_N,
                 paramL: DEFAULT.PARAM_L,
+                paramLL: DEFAULT.PARAM_LL,
                 paramM: DEFAULT.PARAM_M,
                 paramC: {
                     single: DEFAULT.PARAM_C_SINGLE,
@@ -414,7 +435,7 @@ export default {
             link.href = this.$refs.canvas.toDataURL('image/png;base64');
             link.setAttribute(
                 'download',
-                `stringulator-${this.paramN}-${this.paramL}-${this.paramN1}-${this.paramN2}.png`
+                `stringulator-${this.dataSum}.png`
             );
             document.body.appendChild(link);
 

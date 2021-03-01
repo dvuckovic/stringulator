@@ -30,6 +30,7 @@
     "bootstrap": "^5.0.0-beta2",
     "clipboard": "^2.0.6",
     "core-js": "^3.6.5",
+    "hash-sum": "^2.0.0",
     "uuid": "^8.3.2",
     "vue": "^3.0.0"
   },
@@ -42,6 +43,7 @@
     "@vue/compiler-sfc": "^3.0.0",
     "@vue/test-utils": "^2.0.0-0",
     "babel-eslint": "^10.1.0",
+    "cypress": "^6.5.0",
     "cypress-pipe": "^2.0.0",
     "cypress-plugin-snapshots": "^1.4.4",
     "eslint": "^6.7.2",

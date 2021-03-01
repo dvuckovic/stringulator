@@ -15,7 +15,7 @@ describe('Snapshot test', () => {
     it('renders canvas that matches the modified paramN state', () => {
         cy.get('.InputRange--ParamN input.InputRange__NumberField')
             .clear({ force: true })
-            .type('360', { force: true });
+            .type('180', { force: true });
 
         cy.get('main canvas').toMatchImageSnapshot({
             name: 'canvas_snapshot',
@@ -25,7 +25,17 @@ describe('Snapshot test', () => {
     it('renders canvas that matches the modified paramL state', () => {
         cy.get('.InputRange--ParamL input.InputRange__NumberField')
             .clear({ force: true })
-            .type('30', { force: true });
+            .type('12', { force: true });
+
+        cy.get('main canvas').toMatchImageSnapshot({
+            name: 'canvas_snapshot',
+        });
+    });
+
+    it('renders canvas that matches the modified paramLL state', () => {
+        cy.get('.InputRange--ParamLL input.InputRange__NumberField')
+            .clear({ force: true })
+            .type('45', { force: true });
 
         cy.get('main canvas').toMatchImageSnapshot({
             name: 'canvas_snapshot',
@@ -64,7 +74,7 @@ describe('Snapshot test', () => {
     it('renders canvas that matches the modified paramN2 state', () => {
         cy.get('.InputRange--ParamN2 input.InputRange__NumberField')
             .clear({ force: true })
-            .type('22', { force: true });
+            .type('5', { force: true });
 
         cy.get('main canvas').toMatchImageSnapshot({
             name: 'canvas_snapshot',

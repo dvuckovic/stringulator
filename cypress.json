@@ -6,11 +6,13 @@
     "**/__snapshots__/*",
     "**/__image_snapshots__/*"
   ],
+  "viewportWidth": 1280,
+  "viewportHeight": 720,
   "env": {
     "cypress-plugin-snapshots": {
       "separator": "_",
       "imageConfig": {
-        "threshold": 0.6
+        "threshold": 0.42
       }
     }
   }

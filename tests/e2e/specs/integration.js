@@ -10,18 +10,19 @@ describe('Integration test', () => {
     });
 
     it('renders the main area', () => {
-        cy.get('main input').should('have.length', 20);
+        cy.get('main input').should('have.length', 22);
         cy.get('main button').should('have.length', 4);
         cy.get('main canvas').should('exist');
     });
 
     it('renders the footer', () => {
-        cy.contains('.text-muted', '540 lines');
+        cy.contains('.text-muted', '600 lines');
     });
 
     it('supports download', () => {
         cy.get('button[type="submit"]').click({ force: true });
-        cy.get('a[download]').should('have.attr', 'href')
+        cy.get('a[download]').should('have.attr', 'download', 'stringulator-4c23d1dc.png')
+            .should('have.attr', 'href')
             .and('match', /^data:image\/png;base64/);
     });
 
@@ -44,10 +45,13 @@ describe('Integration test', () => {
     it('supports resetting', () => {
         cy.get('.InputRange--ParamN input.InputRange__NumberField')
             .clear({ force: true })
-            .type('360', { force: true });
+            .type('180', { force: true });
         cy.get('.InputRange--ParamL input.InputRange__NumberField')
             .clear({ force: true })
-            .type('30', { force: true });
+            .type('12', { force: true });
+        cy.get('.InputRange--ParamLL input.InputRange__NumberField')
+            .clear({ force: true })
+            .type('45', { force: true });
         cy.get('.InputColor--ParamC input').eq(0)
             .invoke('val', '#fd89fd')
             .trigger('input');
@@ -58,7 +62,7 @@ describe('Integration test', () => {
             .type('2', { force: true });
         cy.get('.InputRange--ParamN2 input.InputRange__NumberField')
             .clear({ force: true })
-            .type('22', { force: true });
+            .type('5', { force: true });
 
         cy.get('button[type="reset"]').click({ force: true });
 
@@ -66,6 +70,8 @@ describe('Integration test', () => {
             .should('have.value', '120');
         cy.get('.InputRange--ParamL input.InputRange__NumberField')
             .should('have.value', '10');
+        cy.get('.InputRange--ParamLL input.InputRange__NumberField')
+            .should('have.value', '60');
         cy.get('.InputColor--ParamC input')
             .should('have.value', '#fd7f7c');
         cy.get('.InputRadio--ParamMMultiple input')
