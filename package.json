@@ -1,6 +1,6 @@
 {
   "name": "stringulator",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Quick & dirty circular string art simulator",
   "private": true,
   "scripts": {
