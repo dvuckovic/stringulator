@@ -1,3 +1,5 @@
+import { version } from '../../../package.json';
+
 describe('Integration test', () => {
     it('visits the root url', () => {
         cy.visit('/');
@@ -16,7 +18,8 @@ describe('Integration test', () => {
     });
 
     it('renders the footer', () => {
-        cy.contains('.text-muted', '600 lines');
+        cy.contains('footer .Footer__Lines', '600 lines');
+        cy.contains('footer .Footer__Version', version);
     });
 
     it('supports download', () => {
