@@ -59,7 +59,7 @@ describe('InputRange', () => {
 
         wrapper.find('input[type="range"]').setValue(modelValue);
 
-        expect(wrapper.emitted()).toEqual({});
+        expect(wrapper.emitted()['update:modelValue']).toBeUndefined();
 
         wrapper.setProps({
             min: 0,
@@ -71,7 +71,7 @@ describe('InputRange', () => {
 
         wrapper.find('input[type="number"]').setValue(modelValue);
 
-        expect(wrapper.emitted()).toEqual({});
+        expect(wrapper.emitted()['update:modelValue']).toBeUndefined();
 
         wrapper.setProps({
             step: 0.01,

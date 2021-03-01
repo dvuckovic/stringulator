@@ -32,7 +32,7 @@
     "core-js": "^3.6.5",
     "hash-sum": "^2.0.0",
     "uuid": "^8.3.2",
-    "vue": "^3.0.0"
+    "vue": "^3.0.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -40,8 +40,8 @@
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-unit-jest": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
-    "@vue/test-utils": "^2.0.0-0",
+    "@vue/compiler-sfc": "^3.0.6",
+    "@vue/test-utils": "^2.0.0-rc.2",
     "babel-eslint": "^10.1.0",
     "cypress": "^6.5.0",
     "cypress-pipe": "^2.0.0",
