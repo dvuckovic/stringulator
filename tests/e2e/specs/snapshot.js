@@ -4,8 +4,9 @@ describe('Snapshot test', () => {
     });
 
     it('renders canvas that matches the default state', () => {
-        // Remove the navigation bar because its offset messes up with the canvas screenshot below.
+        // Remove the navigation bar and row margin because they mess up the canvas screenshot below.
         cy.get('nav').then(($el) => $el.remove());
+        cy.get('.container-fluid .row.my-2').then(($el) => $el.removeClass('my-2'));
 
         cy.get('main canvas').toMatchImageSnapshot({
             name: 'canvas_snapshot',
