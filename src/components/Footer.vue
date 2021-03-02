@@ -1,19 +1,16 @@
 <template>
-    <footer class="footer mt-auto py-3 bg-dark">
+    <footer class="footer mt-auto py-3 bg-dark Footer">
         <div class="container-fluid">
             <div class="row justify-content-between align-items-center">
                 <div class="col-auto">
-                    <span class="text-muted">
+                    <span class="text-muted Footer__Lines">
                         {{ lines }} lines
                     </span>
                 </div>
                 <div class="col-auto">
-                    <button
-                        type="button"
-                        class="btn btn-outline-light"
-                        v-on:click="download">
-                        Download
-                    </button>
+                    <span class="text-muted Footer__Version">
+                        v{{ version }}
+                    </span>
                 </div>
             </div>
         </div>
@@ -21,12 +18,20 @@
 </template>
 
 <script>
+import { version } from '../../package.json';
+
 export default {
     name: 'Footer',
 
     props: {
         lines: {
             type: Number,
+        },
+    },
+
+    computed: {
+        version () {
+            return version;
         },
     },
 
