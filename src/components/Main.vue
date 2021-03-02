@@ -1,8 +1,8 @@
 <template>
     <main class="flex-shrink-0">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-4 my-2">
+            <div class="row my-2">
+                <div class="col-md-4">
                     <form v-on:change="isModified = true">
                         <div class="row">
                             <div class="col">
@@ -95,7 +95,7 @@
                                     label="Second step" />
                             </div>
                         </div>
-                        <div class="row mt-3 justify-content-between">
+                        <div class="row my-3 justify-content-between">
                             <div class="col-12 col-xxl-4 order-3 order-xxl-1 mt-3 d-grid">
                                 <button
                                     v-bind:disabled="!isModified"
@@ -453,6 +453,7 @@ export default {
 main {
     canvas {
         max-width: 100%;
+        border-radius: 0.25rem;
     }
 }
 </style>
