@@ -32,9 +32,10 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
 import { v4 as uuid } from 'uuid';
 
-export default {
+export default defineComponent({
     name: 'InputRange',
 
     props: {
@@ -96,7 +97,7 @@ export default {
             },
         },
     },
-};
+});
 </script>
 
 <style lang="scss">

@@ -29,7 +29,9 @@
                             href="https://github.com/dvuckovic/stringulator/"
                             title="Github"
                             target="_blank">
-                            <i class="bi-github" />
+                            <BootstrapIcon
+                                icon="github"
+                                size="lg" />
                         </a>
                     </li>
                 </ul>
@@ -39,9 +41,11 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
     name: 'Navigation',
-};
+});
 </script>
 
 <style lang="scss">

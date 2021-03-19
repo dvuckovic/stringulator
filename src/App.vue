@@ -7,11 +7,11 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue';
+import { defineComponent, defineAsyncComponent } from 'vue';
 
 import 'bootstrap';
 
-export default {
+export default defineComponent({
     name: 'App',
 
     components: {
@@ -31,7 +31,7 @@ export default {
             this.lines = lines;
         },
     },
-};
+});
 </script>
 
 <style lang="scss">
@@ -44,5 +44,4 @@ $dark: #212529;
 $white: #ffffff;
 
 @import 'node_modules/bootstrap/scss/bootstrap';
-@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css');
 </style>

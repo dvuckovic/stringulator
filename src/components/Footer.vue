@@ -18,9 +18,10 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
 import { version } from '../../package.json';
 
-export default {
+export default defineComponent({
     name: 'Footer',
 
     props: {
@@ -40,5 +41,5 @@ export default {
             this.$emit('download');
         },
     },
-};
+});
 </script>

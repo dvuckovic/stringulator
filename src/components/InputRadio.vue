@@ -16,9 +16,10 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
 import { v4 as uuid } from 'uuid';
 
-export default {
+export default defineComponent({
     name: 'InputRadio',
 
     props: {
@@ -56,5 +57,5 @@ export default {
             },
         },
     },
-};
+});
 </script>

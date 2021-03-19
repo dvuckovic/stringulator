@@ -102,7 +102,7 @@
                                     type="reset"
                                     class="btn btn-light"
                                     v-on:click.prevent="resetData">
-                                    <i class="bi-trash-fill" />
+                                    <BootstrapIcon icon="trash-fill" />
                                     Reset
                                 </button>
                             </div>
@@ -111,7 +111,7 @@
                                     v-bind:data-clipboard-text="shareLink"
                                     type="button"
                                     class="btn btn-secondary CopyToClipboard">
-                                    <i class="bi-share-fill" />
+                                    <BootstrapIcon icon="share-fill" />
                                     Share
                                 </button>
                             </div>
@@ -120,7 +120,7 @@
                                     type="submit"
                                     class="btn btn-primary"
                                     v-on:click.prevent="download">
-                                    <i class="bi-cloud-arrow-down-fill" />
+                                    <BootstrapIcon icon="cloud-arrow-down-fill" />
                                     Download
                                 </button>
                             </div>
@@ -160,6 +160,7 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
 import ClipboardJS from 'clipboard';
 import { defineAsyncComponent } from 'vue';
 import { Base64 } from 'js-base64';
@@ -180,7 +181,7 @@ const DEFAULT = {
     HEIGHT: 768,
 };
 
-export default {
+export default defineComponent({
     name: 'Main',
 
     components: {
@@ -446,7 +447,7 @@ export default {
             link.remove();
         },
     },
-};
+});
 </script>
 
 <style lang="scss">
