@@ -6,6 +6,8 @@
 
 Quick & dirty circular string art simulator.
 
+[Demo]
+
 ## Project setup
 ```
 npm install --no-save
@@ -30,3 +32,5 @@ npm run lint
 ```
 npm test
 ```
+
+[Demo]: https://dvuckovic.com/stringulator/
