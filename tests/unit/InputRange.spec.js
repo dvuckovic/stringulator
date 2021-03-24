@@ -37,13 +37,13 @@ describe('InputRange', () => {
 
         wrapper.find('input[type="range"]').setValue(modelValue);
 
-        expect(wrapper.emitted()['update:modelValue'][0]).toEqual([modelValue]);
+        expect(wrapper.emitted()['update:modelValue'][0]).toEqual([ modelValue ]);
 
         modelValue = 50;
 
         wrapper.find('input[type="number"]').setValue(modelValue);
 
-        expect(wrapper.emitted()['update:modelValue'][1]).toEqual([modelValue]);
+        expect(wrapper.emitted()['update:modelValue'][1]).toEqual([ modelValue ]);
 
         delete wrapper.emitted()['update:modelValue'];
     });
@@ -83,10 +83,10 @@ describe('InputRange', () => {
 
         wrapper.find('input[type="number"]').setValue(modelValue);
 
-        expect(wrapper.emitted()['update:modelValue'][0]).toEqual([modelValue]);
+        expect(wrapper.emitted()['update:modelValue'][0]).toEqual([ modelValue ]);
     });
 
-    it ('supports the label prop', async () => {
+    it('supports the label prop', async () => {
         expect(wrapper.find('label').exists()).toBe(false);
 
         const label = 'Foo bar';
@@ -100,7 +100,7 @@ describe('InputRange', () => {
         expect(wrapper.find('label').text()).toEqual(label);
     });
 
-    it ('renders the label element', () => {
+    it('renders the label element', () => {
         const labelElement = wrapper.find('label');
 
         expect(labelElement.exists()).toEqual(true);
@@ -111,7 +111,7 @@ describe('InputRange', () => {
         expect(wrapper.find('input[type="range"]').attributes('id')).toEqual(fieldId);
     });
 
-    it ('supports the minimum prop', async () => {
+    it('supports the minimum prop', async () => {
         const min = 0;
 
         wrapper.setProps({
@@ -125,7 +125,7 @@ describe('InputRange', () => {
         });
     });
 
-    it ('supports the maximum prop', async () => {
+    it('supports the maximum prop', async () => {
         const max = 50;
 
         wrapper.setProps({
@@ -139,7 +139,7 @@ describe('InputRange', () => {
         });
     });
 
-    it ('supports the step prop', async () => {
+    it('supports the step prop', async () => {
         const step = 5;
 
         wrapper.setProps({

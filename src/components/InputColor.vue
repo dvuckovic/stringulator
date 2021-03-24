@@ -10,7 +10,7 @@
             v-bind:id="fieldId"
             v-model="localModelValue"
             class="form-control form-control-color"
-            type="color" />
+            type="color">
     </div>
 </template>
 
@@ -27,7 +27,7 @@ export default defineComponent({
         },
 
         label: {
-            type: [String, Number],
+            type: [ String, Number ],
         },
     },
 

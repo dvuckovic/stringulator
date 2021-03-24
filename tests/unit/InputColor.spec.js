@@ -33,14 +33,14 @@ describe('InputColor', () => {
     });
 
     it('emits the update event on input change', () => {
-        let modelValue = '#0000ff';
+        const modelValue = '#0000ff';
 
         wrapper.find('input[type="color"]').setValue(modelValue);
 
-        expect(wrapper.emitted()['update:modelValue'][0]).toEqual([modelValue]);
+        expect(wrapper.emitted()['update:modelValue'][0]).toEqual([ modelValue ]);
     });
 
-    it ('supports the label prop', async () => {
+    it('supports the label prop', async () => {
         expect(wrapper.find('label').exists()).toBe(false);
 
         const label = 'Foo bar';
@@ -54,7 +54,7 @@ describe('InputColor', () => {
         expect(wrapper.find('label').text()).toEqual(label);
     });
 
-    it ('renders the label element', () => {
+    it('renders the label element', () => {
         const labelElement = wrapper.find('label');
 
         expect(labelElement.exists()).toEqual(true);

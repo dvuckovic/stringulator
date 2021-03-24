@@ -15,7 +15,7 @@
                     v-bind:max="max"
                     v-bind:step="step"
                     class="form-range"
-                    type="range" />
+                    type="range">
             </div>
             <div class="col-auto">
                 <input
@@ -25,7 +25,7 @@
                     v-bind:step="step"
                     v-bind:aria-label="label"
                     class="form-control InputRange__NumberField"
-                    type="number" />
+                    type="number">
             </div>
         </div>
     </div>

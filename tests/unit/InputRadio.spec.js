@@ -12,7 +12,7 @@ describe('InputRadio', () => {
             props: {
                 modelValue,
                 option,
-            }
+            },
         });
 
         expect(wrapper.find('input').element.checked).toBe(true);
@@ -41,10 +41,10 @@ describe('InputRadio', () => {
 
         wrapper.find('input[type="radio"]').setValue(true);
 
-        expect(wrapper.emitted()['update:modelValue'][0]).toEqual([option]);
+        expect(wrapper.emitted()['update:modelValue'][0]).toEqual([ option ]);
     });
 
-    it ('supports the label prop', async () => {
+    it('supports the label prop', async () => {
         expect(wrapper.find('label').exists()).toBe(false);
 
         const label = 'Foo bar';
@@ -58,7 +58,7 @@ describe('InputRadio', () => {
         expect(wrapper.find('label').text()).toEqual(label);
     });
 
-    it ('renders the label element', () => {
+    it('renders the label element', () => {
         const labelElement = wrapper.find('label');
 
         expect(labelElement.exists()).toEqual(true);

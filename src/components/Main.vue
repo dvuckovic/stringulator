@@ -30,7 +30,7 @@
                                     v-model="paramLL"
                                     class="InputRange--ParamLL"
                                     v-bind:min="1"
-                                    v-bind:max="this.paramN * 2"
+                                    v-bind:max="paramN * 2"
                                     label="Lines per layer" />
                             </div>
                         </div>
@@ -160,9 +160,9 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, defineAsyncComponent } from 'vue';
 import ClipboardJS from 'clipboard';
-import { defineAsyncComponent } from 'vue';
+
 import { Base64 } from 'js-base64';
 import { Toast } from 'bootstrap';
 import hashSum from 'hash-sum';
@@ -190,7 +190,7 @@ export default defineComponent({
         InputRadio: defineAsyncComponent(() => import('@/components/InputRadio')),
     },
 
-    data() {
+    data () {
         return {
             ctx: null,
             paramN: DEFAULT.PARAM_N,
@@ -215,7 +215,7 @@ export default defineComponent({
     computed: {
         circlePoints () {
             const n = this.paramN;
-            const alpha = Math.PI * 2 / n;
+            const alpha = (Math.PI * 2) / n;
             const points = [];
 
             let i = -1;
@@ -366,6 +366,7 @@ export default defineComponent({
         },
 
         loadData () {
+            /* eslint-disable no-restricted-globals */
             if (location.hash) {
                 try {
                     const base64 = location.hash.substring(1);
@@ -373,12 +374,14 @@ export default defineComponent({
                     this.setData(data);
                 }
                 catch (err) {
+                    // eslint-disable-next-line no-console
                     console.error('Error parsing data, please check your link.', err);
                 }
 
                 // Clear the hash value by replacing the current history state.
                 history.replaceState('', document.title, window.location.pathname + window.location.search);
             }
+            /* eslint-enable no-restricted-globals */
         },
 
         resetData () {

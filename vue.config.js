@@ -1,8 +1,8 @@
 /**
  * @type {import('@vue/cli-service').ProjectOptions}
  */
-const project = require('./package.json');
 const lodash = require('lodash');
+const project = require('./package.json');
 
 module.exports = {
     publicPath: '',

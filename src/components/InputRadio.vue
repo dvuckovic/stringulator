@@ -5,7 +5,7 @@
             v-model="localModelValue"
             v-bind:value="option"
             class="form-check-input"
-            type="radio" />
+            type="radio">
         <label
             v-if="label"
             v-bind:for="fieldId"
