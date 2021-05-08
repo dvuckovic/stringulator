@@ -47,7 +47,7 @@
     "cypress": "^6.8.0",
     "cypress-pipe": "^2.0.0",
     "cypress-plugin-snapshots": "^1.4.4",
-    "eslint": "^7.23.0",
+    "eslint": "^7.26.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-vue": "^7.0.0-0",
     "js-base64": "^3.6.0",
