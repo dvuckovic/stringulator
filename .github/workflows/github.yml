@@ -1,4 +1,4 @@
-name: ci
+name: github
 
 # Controls when the workflow will run.
 #   Triggers the workflow on all pushes, except on tag creation.
@@ -27,10 +27,6 @@ jobs:
             ~/.cache
             **/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
 
     - name: Install 📦
       run: npm install --no-save
