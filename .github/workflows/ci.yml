@@ -1,17 +1,17 @@
-name: Test & Deploy
+name: ci
 
-# Controls when the action will run.
-#   Triggers the workflow on all pushes & pull requests, except on tag creation.
+# Controls when the workflow will run.
+#   Triggers the workflow on all pushes, except on tag creation.
 on:
   push:
     branches:
     - '**'
     tags-ignore:
     - '**'
-  pull_request:
 
 jobs:
-  github_ci:
+  ci:
+    name: ci
     runs-on: ubuntu-20.04
     steps:
     - name: Checkout 🛎️
