@@ -1,13 +1,20 @@
 name: github
 
 # Controls when the workflow will run.
-#   Triggers the workflow on all pushes, except on tag creation.
 on:
+
+  # Triggers the workflow on all pushes, except on tag creation.
   push:
     branches:
     - '**'
     tags-ignore:
     - '**'
+
+  # Triggers the workflow on pull requests.
+  pull_request: ~
+
+  # Allows for workflow to be triggered manually.
+  workflow_dispatch: ~
 
 jobs:
   ci:
