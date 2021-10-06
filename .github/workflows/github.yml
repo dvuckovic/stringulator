@@ -51,5 +51,3 @@ jobs:
         build_dir: dist/
         repo: dvuckovic/stringulator
         target_branch: gh-pages
-      env:
-        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
