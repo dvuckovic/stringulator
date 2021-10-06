@@ -49,7 +49,7 @@
     "cypress-plugin-snapshots": "^1.4.4",
     "eslint": "^7.32.0",
     "eslint-plugin-import": "^2.24.2",
-    "eslint-plugin-vue": "^7.19.0",
+    "eslint-plugin-vue": "^7.19.1",
     "js-base64": "^3.7.2",
     "node-sass": "^6.0.1",
     "sass-loader": "^10.2.0",
