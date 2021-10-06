@@ -10,9 +10,6 @@ on:
     tags-ignore:
     - '**'
 
-  # Triggers the workflow on pull requests.
-  pull_request: ~
-
   # Allows for workflow to be triggered manually.
   workflow_dispatch: ~
 
