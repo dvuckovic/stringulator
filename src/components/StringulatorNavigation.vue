@@ -44,7 +44,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'Navigation',
+    name: 'StringulatorNavigation',
 });
 </script>
 
