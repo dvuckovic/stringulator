@@ -1,14 +1,14 @@
 <template>
-    <footer class="footer mt-auto py-3 bg-dark Footer">
+    <footer class="footer mt-auto py-3 bg-dark StringulatorFooter">
         <div class="container-fluid">
             <div class="row justify-content-between align-items-center">
                 <div class="col-auto">
-                    <span class="text-muted Footer__Lines">
+                    <span class="text-muted StringulatorFooter__Lines">
                         {{ lines }} lines
                     </span>
                 </div>
                 <div class="col-auto">
-                    <span class="text-muted Footer__Version">
+                    <span class="text-muted StringulatorFooter__Version">
                         v{{ version }}
                     </span>
                 </div>
@@ -22,7 +22,7 @@ import { defineComponent } from 'vue';
 import { version } from '../../package.json';
 
 export default defineComponent({
-    name: 'Footer',
+    name: 'StringulatorFooter',
 
     props: {
         lines: {

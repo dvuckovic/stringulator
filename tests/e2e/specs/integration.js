@@ -18,8 +18,8 @@ describe('Integration test', () => {
     });
 
     it('renders the footer', () => {
-        cy.contains('footer .Footer__Lines', '600 lines');
-        cy.contains('footer .Footer__Version', version);
+        cy.contains('footer .StringulatorFooter__Lines', '600 lines');
+        cy.contains('footer .StringulatorFooter__Version', version);
     });
 
     it('supports download', () => {

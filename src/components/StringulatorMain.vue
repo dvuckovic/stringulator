@@ -182,7 +182,7 @@ const DEFAULT = {
 };
 
 export default defineComponent({
-    name: 'Main',
+    name: 'StringulatorMain',
 
     components: {
         InputColor: defineAsyncComponent(() => import('@/components/InputColor')),

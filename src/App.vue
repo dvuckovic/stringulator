@@ -1,8 +1,8 @@
 <template>
     <div class="d-flex flex-column h-100">
-        <Navigation />
-        <Main v-on:update-lines="updateLines" />
-        <Footer v-bind:lines="lines" />
+        <StringulatorNavigation />
+        <StringulatorMain v-on:update-lines="updateLines" />
+        <StringulatorFooter v-bind:lines="lines" />
     </div>
 </template>
 
@@ -15,9 +15,9 @@ export default defineComponent({
     name: 'App',
 
     components: {
-        Main: defineAsyncComponent(() => import('@/components/Main')),
-        Navigation: defineAsyncComponent(() => import('@/components/Navigation')),
-        Footer: defineAsyncComponent(() => import('@/components/Footer')),
+        StringulatorMain: defineAsyncComponent(() => import('@/components/StringulatorMain')),
+        StringulatorNavigation: defineAsyncComponent(() => import('@/components/StringulatorNavigation')),
+        StringulatorFooter: defineAsyncComponent(() => import('@/components/StringulatorFooter')),
     },
 
     data () {
