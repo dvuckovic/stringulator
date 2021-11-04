@@ -27,7 +27,7 @@
   "dependencies": {
     "@popperjs/core": "^2.8.0",
     "clipboard": "^2.0.6",
-    "core-js": "^3.19.0",
+    "core-js": "^3.19.1",
     "hash-sum": "^2.0.0",
     "uuid": "^8.3.2",
     "vue": "^3.2.20"
@@ -36,7 +36,7 @@
     "@dvuckovic/vue3-bootstrap-icons": "^1.0.4",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-e2e-cypress": "~4.5.15",
-    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.15",
     "@vue/cli-plugin-unit-jest": "^4.5.15",
     "@vue/cli-service": "~4.5.15",
     "@vue/compiler-sfc": "^3.2.20",
