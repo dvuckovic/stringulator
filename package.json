@@ -30,7 +30,7 @@
     "core-js": "^3.19.0",
     "hash-sum": "^2.0.0",
     "uuid": "^8.3.2",
-    "vue": "^3.2.20"
+    "vue": "^3.2.21"
   },
   "devDependencies": {
     "@dvuckovic/vue3-bootstrap-icons": "^1.0.4",
