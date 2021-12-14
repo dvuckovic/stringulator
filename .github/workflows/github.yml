@@ -21,19 +21,8 @@ jobs:
     - name: Checkout 🛎️
       uses: actions/checkout@v2
 
-    - name: Cache 💾
-      uses: actions/cache@v2
-      env:
-          cache-name: cache-npm
-      with:
-          path: |
-            ~/.npm
-            ~/.cache
-            **/node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-
     - name: Install 📦
-      run: npm install --no-save
+      run: npm ci
 
     - name: Test ✅
       run: npm test
