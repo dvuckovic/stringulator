@@ -28,7 +28,8 @@
                             class="nav-link"
                             href="https://github.com/dvuckovic/stringulator/"
                             title="Github"
-                            target="_blank">
+                            target="_blank"
+                            aria-label="Github">
                             <BootstrapIcon
                                 icon="github"
                                 size="lg" />

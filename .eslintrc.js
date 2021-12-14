@@ -129,6 +129,9 @@ module.exports = {
 
         // Don't correct new lines in single line HTML elements for backward compatibility reasons.
         'vue/singleline-html-element-content-newline': 'off',
+
+        // Don't enforce FOR attributes for LABEL elements, since the plugin doesn't detect binding syntax.
+        'vuejs-accessibility/label-has-for': 'off',
     },
     overrides: [
         {
