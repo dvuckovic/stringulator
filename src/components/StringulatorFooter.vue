@@ -19,7 +19,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { version } from '../../package.json';
+import packageJson from '../../package.json';
 
 export default defineComponent({
     name: 'StringulatorFooter',
@@ -32,7 +32,7 @@ export default defineComponent({
 
     computed: {
         version () {
-            return version;
+            return packageJson.version;
         },
     },
 

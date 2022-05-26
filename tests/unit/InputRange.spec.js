@@ -59,7 +59,7 @@ describe('InputRange', () => {
 
         wrapper.find('input[type="range"]').setValue(modelValue);
 
-        expect(wrapper.emitted()['update:modelValue']).toBeUndefined();
+        expect(wrapper.emitted()['update:modelValue'][0]).toEqual([ 5 ]);
 
         wrapper.setProps({
             min: 0,
@@ -71,7 +71,7 @@ describe('InputRange', () => {
 
         wrapper.find('input[type="number"]').setValue(modelValue);
 
-        expect(wrapper.emitted()['update:modelValue']).toBeUndefined();
+        expect(wrapper.emitted()['update:modelValue'][0]).toEqual([ 5 ]);
 
         wrapper.setProps({
             step: 0.01,
@@ -83,7 +83,7 @@ describe('InputRange', () => {
 
         wrapper.find('input[type="number"]').setValue(modelValue);
 
-        expect(wrapper.emitted()['update:modelValue'][0]).toEqual([ modelValue ]);
+        expect(wrapper.emitted()['update:modelValue'][1]).toEqual([ modelValue ]);
     });
 
     it('supports the label prop', async () => {
