@@ -38,7 +38,7 @@ jobs:
 
     - name: Deploy 🚀
       if: success() && github.ref == 'refs/heads/main'
-      uses: crazy-max/ghaction-github-pages@v2
+      uses: crazy-max/ghaction-github-pages@v3
       with:
         author: Dusan Vuckovic <dusan@dvuckovic.com>
         commit_message: Deployed to Github Pages.
