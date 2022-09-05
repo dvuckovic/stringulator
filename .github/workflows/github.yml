@@ -13,10 +13,24 @@ on:
   # Allows for workflow to be triggered manually.
   workflow_dispatch: ~
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
 jobs:
   ci:
     name: ci
-    runs-on: ubuntu-20.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout 🛎️
       uses: actions/checkout@v3
@@ -27,23 +41,26 @@ jobs:
         node-version: '16'
 
     - name: Install 📦
-      run: npm ci
+      run: npm ci --legacy-peer-deps
 
     - name: Test ✅
       run: npm test
 
-    - name: Build 🚛
-      if: success() && github.ref == 'refs/heads/main'
+    - name: Configure 🔧
+      if: github.ref == 'refs/heads/main'
+      uses: actions/configure-pages@v2
+
+    - name: Build ⚙️
+      if: github.ref == 'refs/heads/main'
       run: npm run build
 
-    - name: Deploy 🚀
-      if: success() && github.ref == 'refs/heads/main'
-      uses: crazy-max/ghaction-github-pages@v2
+    - name: Upload ⬆️
+      if: github.ref == 'refs/heads/main'
+      uses: actions/upload-pages-artifact@v1
       with:
-        author: Dusan Vuckovic <dusan@dvuckovic.com>
-        commit_message: Deployed to Github Pages.
-        build_dir: dist/
-        repo: dvuckovic/stringulator
-        target_branch: gh-pages
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
+        path: dist/
+
+    - name: Deploy 🚀
+      if: github.ref == 'refs/heads/main'
+      id: deployment
+      uses: actions/deploy-pages@v1
