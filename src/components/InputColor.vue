@@ -67,7 +67,7 @@ export default defineComponent({
         }
 
         & > .form-control {
-            height: auto;
+            height: 2.375rem;
             padding: 0.375rem;
 
             &:not(:placeholder-shown) {

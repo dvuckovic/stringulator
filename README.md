@@ -33,4 +33,4 @@ npm run lint
 npm test
 ```
 
-[Demo]: https://dvuckovic.com/stringulator/
+[Demo]: https://stringulator.dvuckovic.com
